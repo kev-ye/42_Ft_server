@@ -14,5 +14,5 @@ mkdir /etc/nginx/ssl
 openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout key.pem -out cert.pem -days 3650 -subj "/CN=FR/ST=Paris/L=Paris/O=42/OU=42/CN=kaye"
 
 # Move key file in nginx repository
-move key.pem /etc/nginx/ssl
-move cert.pem /etc/nginx/ssl
+mv key.pem /etc/nginx/ssl
+mv cert.pem /etc/nginx/ssl
