@@ -1,7 +1,7 @@
 # Get debian image official -> tag buster : buster version debian #
 FROM debian:buster-slim
 
-# Copy all of my source files to image/app (debian) #
+# Copy all of my source files to image/APP (debian) #
 # Allocate the work folder path #
 COPY . /APP
 WORKDIR /APP
@@ -34,4 +34,4 @@ RUN apt-get install -y php7.3-fpm \
                         php7.3-zip
 
 # Run script #
-CMD ["bash", "./srcs/init.sh"]
+# CMD ["bash", "./srcs/init.sh"]

@@ -1,17 +1,16 @@
-# Init configuration #
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    init.sh                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kaye <kaye@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/02/19 10:39:45 by kaye              #+#    #+#              #
+#    Updated: 2021/02/19 15:38:07 by kaye             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# Creat website folder #
-mkdir /var/www/website
-mkdir /var/www/website/phpmyadmin
-
-# Creat ssl folder #
-mkdir /etc/nginx/ssl
-
-# Creat website file #
-touch /var/www/website/index.php
-echo "<?php" >> /var/www/website/index.php
-echo "phpinfo();" >> /var/www/website/index.php
-
+## Init configuration ##
 
 # Creat ssl certificate #
 ## req :            creat certificate siging request
@@ -23,28 +22,60 @@ echo "phpinfo();" >> /var/www/website/index.php
 ## -out :           output certificate file
 ## -days :          valid period
 ## -subj :          information "/CN=Country name/ST=State/L=Locality/O=Organization/OU=Organization unit/CN=Common/emailAddress=Email"
+mkdir /etc/nginx/ssl
 openssl req \
         -x509 \
         -newkey rsa:4096 \
         -sha256 \
         -nodes \
-        -keyout key.pem \
-        -out cert.pem \
+        -keyout /etc/nginx/ssl/key.pem \
+        -out /etc/nginx/ssl/cert.pem \
         -days 3650 \
         -subj "/CN=FR/ST=Paris/L=Paris/O=42/OU=42/CN=kaye"
 
-# Move key file in nginx folder #
-mv key.pem /etc/nginx/ssl
-mv cert.pem /etc/nginx/ssl
+# Start mysql #
+service mysql start
+
+# Configure wordpress database #
+echo "create database wordpress;" | mysql -u root
+echo "create user 'wordpress'@'%';" | mysql -u root
+echo "grant all privileges on wordpress.* to 'wordpress'@'%' with grant option;" | mysql -u root
+echo "flush privileges" | mysql -u root
+
+# Check database and grants #
+echo "show databases" | mysql -u root | grep 'wordpress'
+echo "show grants for wordpress;" | mysql -u root
+
+# Creat website folder #
+mkdir /var/www/website
 
 # Download phpmyadmin #
-wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
-tar -xvf phpMyAdmin-latest-all-languages.tar.gz
+wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz
+tar -xzvf phpMyAdmin-5.0.4-all-languages.tar.gz
+rm -rf phpMyAdmin-5.0.4-all-languages.tar.gz
+mv phpMyAdmin-5.0.4-all-languages /var/www/website/phpmyadmin
+cp /var/www/website/phpmyadmin/config.sample.inc.php /var/www/website/phpmyadmin/config.inc.php
+chmod 660 /var/www/html/phpmyadmin/config.inc.php
+chown -R www-data:www-data /var/www/html/phpmyadmin
+
+# Download wordpress #
+wget https://wordpress.org/latest.tar.gz
+tar -xzvf latest.tar.gz
+rm -rf latest.tar.gz
+mv wordpress /var/www/website/wordpress
+mv ./srcs/wp-config.php /var/www/website/wordpress
+chmod -R 755 /var/www/website/wordpress
+chown -R www-data:www-data /var/www/website/wordpress
+
+# Configure server #
+mv ./srcs/website /etc/nginx/sites-available/
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/
 
 # Start php-fpm service #
 ## service php7.3-fpm stop -> to stop
 ## service php7.3-fpm restart -> to restart
-# service php7.3-fpm start
+service php7.3-fpm start
 
 # Start nginx service #
-# service nginx start
+service nginx start
