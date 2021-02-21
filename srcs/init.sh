@@ -6,7 +6,7 @@
 #    By: kaye <kaye@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 10:39:45 by kaye              #+#    #+#              #
-#    Updated: 2021/02/19 15:38:07 by kaye             ###   ########.fr        #
+#    Updated: 2021/02/21 17:04:45 by kaye             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,6 @@ echo "create user 'wordpress'@'%';" | mysql -u root
 echo "grant all privileges on wordpress.* to 'wordpress'@'%' with grant option;" | mysql -u root
 echo "flush privileges" | mysql -u root
 
-# Check database and grants #
-echo "show databases" | mysql -u root | grep 'wordpress'
-echo "show grants for wordpress;" | mysql -u root
-
 # Creat website folder #
 mkdir /var/www/website
 
@@ -72,6 +68,9 @@ mv ./srcs/website /etc/nginx/sites-available/
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/
 
+# Add test file #
+mv ./srcs/index.php /var/www/website
+
 # Start php-fpm service #
 ## service php7.3-fpm stop -> to stop
 ## service php7.3-fpm restart -> to restart
@@ -79,3 +78,10 @@ service php7.3-fpm start
 
 # Start nginx service #
 service nginx start
+
+# Check database and grants #
+echo "show databases" | mysql -u root | grep 'wordpress'
+echo "show grants for wordpress;" | mysql -u root
+
+# Run bash #
+bash

@@ -34,4 +34,4 @@ RUN apt-get install -y php7.3-fpm \
                         php7.3-zip
 
 # Run script #
-# CMD ["bash", "./srcs/init.sh"]
+CMD ["bash", "./srcs/init.sh"]
