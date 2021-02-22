@@ -6,7 +6,7 @@
 #    By: kaye <kaye@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 10:39:45 by kaye              #+#    #+#              #
-#    Updated: 2021/02/22 13:22:00 by kaye             ###   ########.fr        #
+#    Updated: 2021/02/22 15:22:15 by kaye             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,8 @@ tar -xzvf phpMyAdmin-5.0.4-all-languages.tar.gz
 rm -rf phpMyAdmin-5.0.4-all-languages.tar.gz
 mv phpMyAdmin-5.0.4-all-languages /var/www/website/phpmyadmin
 mv /APP/srcs/config.inc.php /var/www/website/phpmyadmin/
-chmod 660 /var/www/html/phpmyadmin/config.inc.php
-chown -R www-data:www-data /var/www/html/phpmyadmin
+chmod -R 755 /var/www/website/phpmyadmin/
+chown -R www-data:www-data /var/www/website/phpmyadmin
 
 # Download and configure wordpress #
 wget https://wordpress.org/latest.tar.gz
