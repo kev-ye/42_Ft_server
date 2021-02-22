@@ -6,7 +6,7 @@
 #    By: kaye <kaye@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 10:39:45 by kaye              #+#    #+#              #
-#    Updated: 2021/02/22 15:22:15 by kaye             ###   ########.fr        #
+#    Updated: 2021/02/22 15:25:21 by kaye             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ tar -xzvf latest.tar.gz
 rm -rf latest.tar.gz
 mv wordpress /var/www/website/wordpress
 mv /APP/srcs/wp-config.php /var/www/website/wordpress
-chmod -R 755 /var/www/website/wordpress
+chmod -R 755 /var/www/website/wordpress/
 chown -R www-data:www-data /var/www/website/wordpress
 
 # Configure server #
