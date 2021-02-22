@@ -11,7 +11,8 @@ WORKDIR /APP
 ## openssl  : ssl use
 RUN apt-get update \
     && apt-get install -y wget \
-                            openssl
+                            openssl \
+                            vim
 
 # Install nginx #
 RUN apt-get install -y nginx

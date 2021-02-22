@@ -6,7 +6,7 @@
 #    By: kaye <kaye@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 10:39:45 by kaye              #+#    #+#              #
-#    Updated: 2021/02/22 10:07:42 by kaye             ###   ########.fr        #
+#    Updated: 2021/02/22 13:22:00 by kaye             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-language
 tar -xzvf phpMyAdmin-5.0.4-all-languages.tar.gz
 rm -rf phpMyAdmin-5.0.4-all-languages.tar.gz
 mv phpMyAdmin-5.0.4-all-languages /var/www/website/phpmyadmin
-mv ./srcs/config.inc.php /var/www/website/phpmyadmin/
+mv /APP/srcs/config.inc.php /var/www/website/phpmyadmin/
 chmod 660 /var/www/html/phpmyadmin/config.inc.php
 chown -R www-data:www-data /var/www/html/phpmyadmin
 
@@ -59,17 +59,17 @@ wget https://wordpress.org/latest.tar.gz
 tar -xzvf latest.tar.gz
 rm -rf latest.tar.gz
 mv wordpress /var/www/website/wordpress
-mv ./srcs/wp-config.php /var/www/website/wordpress
+mv /APP/srcs/wp-config.php /var/www/website/wordpress
 chmod -R 755 /var/www/website/wordpress
 chown -R www-data:www-data /var/www/website/wordpress
 
 # Configure server #
-mv ./srcs/website /etc/nginx/sites-available/
+cp /APP/srcs/website_autoindex_on /etc/nginx/sites-available/website
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/
 
-# Add index file #
-mv ./srcs/index.php /var/www/website
+# Access for script #
+chmod 755 /APP/srcs/autoindex.sh
 
 # Start php-fpm service #
 ## service php7.3-fpm stop -> to stop
