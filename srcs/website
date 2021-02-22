@@ -2,6 +2,10 @@ server {
 	listen 80;
 	listen [::]:80;
 	server_name website;
+	# return 301 	-> permanently Moved
+	# return 302 	-> temporarily Moved
+	# $host			-> localhost url
+	# $request_uri 	-> full original request URI
 	return 301 https://$host$request_uri;
 }
 

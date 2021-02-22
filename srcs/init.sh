@@ -6,7 +6,7 @@
 #    By: kaye <kaye@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 10:39:45 by kaye              #+#    #+#              #
-#    Updated: 2021/02/21 17:04:45 by kaye             ###   ########.fr        #
+#    Updated: 2021/02/22 10:07:42 by kaye             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,16 +45,16 @@ echo "flush privileges" | mysql -u root
 # Creat website folder #
 mkdir /var/www/website
 
-# Download phpmyadmin #
+# Download and configure phpmyadmin #
 wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz
 tar -xzvf phpMyAdmin-5.0.4-all-languages.tar.gz
 rm -rf phpMyAdmin-5.0.4-all-languages.tar.gz
 mv phpMyAdmin-5.0.4-all-languages /var/www/website/phpmyadmin
-cp /var/www/website/phpmyadmin/config.sample.inc.php /var/www/website/phpmyadmin/config.inc.php
+mv ./srcs/config.inc.php /var/www/website/phpmyadmin/
 chmod 660 /var/www/html/phpmyadmin/config.inc.php
 chown -R www-data:www-data /var/www/html/phpmyadmin
 
-# Download wordpress #
+# Download and configure wordpress #
 wget https://wordpress.org/latest.tar.gz
 tar -xzvf latest.tar.gz
 rm -rf latest.tar.gz
@@ -68,7 +68,7 @@ mv ./srcs/website /etc/nginx/sites-available/
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/
 
-# Add test file #
+# Add index file #
 mv ./srcs/index.php /var/www/website
 
 # Start php-fpm service #
