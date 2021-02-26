@@ -4,7 +4,7 @@
 
 * [Presentation](#Presentation)
 * [Main file](#Main_file)
-* [How_to_run_?](#How_to_run)
+* [How_to_run](#How_to_run)
 
 ## Presentation 
 
