@@ -3,7 +3,7 @@
 ## Index
 
 * [Presentation](#Presentation)
-* [Main file](#Main_file)
+* [Main_file](#Main_file)
 * [How_to_run](#How_to_run)
 
 ## Presentation 
