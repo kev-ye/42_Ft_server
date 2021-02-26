@@ -1,26 +1,22 @@
 # 42 project : ft_server
 
 ## Index
-___
 
 * [Presentation](#Presentation)
 * [Main file](#Main_file)
-* [How_to_run_?](#How_to_run_?)
+* [How_to_run_?](#How_to_run)
 
 ## Presentation 
-___
 
-    Discover the "docker" technology and use it to install a complete web server.
+Discover the "docker" technology and use it to install a complete web server.
 
 ## Main_file
-___
 
 [__Docker_file_content__](./Dockerfile)  
 [__Script_file_content__](./srcs/init.sh)  
 [__Server_file_content__](./srcs/website_autoindex_on)  
 
-## How_to_run_?
-___
+## How_to_run
 
 `Docker image build command :`  
 
